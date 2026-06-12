@@ -16,6 +16,7 @@ use plato_core::view::common::{toggle_input_history_menu, toggle_keyboard_layout
 use plato_core::view::frontlight::FrontlightWindow;
 use plato_core::view::menu::{Menu, MenuKind};
 use plato_core::view::dictionary::Dictionary as DictionaryApp;
+use plato_core::view::translation::Translation;
 use plato_core::view::calculator::Calculator;
 use plato_core::view::sketch::Sketch;
 use plato_core::view::touch_events::TouchEvents;
@@ -801,6 +802,8 @@ pub fn run() -> Result<(), Error> {
                     AppCmd::Calculator => Box::new(Calculator::new(context.fb.rect(), &tx, &mut rq, &mut context)?),
                     AppCmd::Dictionary { ref query, ref language } => Box::new(DictionaryApp::new(context.fb.rect(), query,
                                                                                                   language, &tx, &mut rq, &mut context)),
+                    AppCmd::Translate { ref query, ref language } => Box::new(Translation::new(context.fb.rect(), query,
+                                                                                               language, &tx, &mut rq, &mut context)),
                     AppCmd::TouchEvents => {
                         Box::new(TouchEvents::new(context.fb.rect(), &mut rq, &mut context))
                     },
