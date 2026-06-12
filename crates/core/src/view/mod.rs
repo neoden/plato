@@ -38,6 +38,7 @@ pub mod key;
 pub mod home;
 pub mod reader;
 pub mod dictionary;
+pub mod translation;
 pub mod calculator;
 pub mod sketch;
 pub mod touch_events;
@@ -317,6 +318,7 @@ pub enum Event {
     PropagateSelect(EntryId),
     EditLanguages,
     Define(String),
+    TranslationReady(String),
     Submit(ViewId, String),
     Slider(SliderId, f32, FingerStatus),
     ToggleNear(ViewId, Rectangle),
@@ -371,6 +373,10 @@ pub enum AppCmd {
     Sketch,
     Calculator,
     Dictionary {
+        query: String,
+        language: String,
+    },
+    Translate {
         query: String,
         language: String,
     },
@@ -539,6 +545,7 @@ pub enum EntryId {
     HighlightSelection,
     AnnotateSelection,
     DefineSelection,
+    TranslateSelection,
     SearchForSelection,
     AdjustSelection,
     Annotations,

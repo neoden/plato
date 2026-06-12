@@ -121,6 +121,7 @@ pub struct Settings {
     pub reader: ReaderSettings,
     pub import: ImportSettings,
     pub dictionary: DictionarySettings,
+    pub translation: TranslationSettings,
     pub sketch: SketchSettings,
     pub calculator: CalculatorSettings,
     pub battery: BatterySettings,
@@ -189,6 +190,36 @@ impl Default for DictionarySettings {
             font_size: 11.0,
             margin_width: 4,
             languages: BTreeMap::new(),
+        }
+    }
+}
+
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum TranslationProvider {
+    Google,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(default, rename_all = "kebab-case")]
+pub struct TranslationSettings {
+    pub provider: TranslationProvider,
+    // Source language code or `auto`; the book's language, when present
+    // in its metadata, takes precedence.
+    pub source: String,
+    pub target: String,
+    pub margin_width: i32,
+    pub font_size: f32,
+}
+
+impl Default for TranslationSettings {
+    fn default() -> Self {
+        TranslationSettings {
+            provider: TranslationProvider::Google,
+            source: "auto".to_string(),
+            target: "ru".to_string(),
+            font_size: 11.0,
+            margin_width: 4,
         }
     }
 }
@@ -546,6 +577,7 @@ impl Default for Settings {
             reader: ReaderSettings::default(),
             import: ImportSettings::default(),
             dictionary: DictionarySettings::default(),
+            translation: TranslationSettings::default(),
             sketch: SketchSettings::default(),
             calculator: CalculatorSettings::default(),
             battery: BatterySettings::default(),

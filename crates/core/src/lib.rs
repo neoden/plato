@@ -16,6 +16,7 @@ pub mod view;
 pub mod metadata;
 pub mod rtc;
 pub mod settings;
+pub mod translator;
 pub mod font;
 pub mod context;
 pub mod gesture;
